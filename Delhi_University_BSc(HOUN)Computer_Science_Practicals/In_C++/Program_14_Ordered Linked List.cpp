@@ -49,10 +49,69 @@ template<class T>class OLL{
 				cout<<"List is empty, can't delete...\n";
 				return;
 			}
-			
-			
+			if(start->info == ele){
+				Node<T>*temp = start;
+				start = start->link;
+				cout<<"Deleted element : "<<temp->info<<endl;
+				free(temp);
+				return;
+			}
+			Node<T>*p = start;
+			while(p->link != NULL && ele > p->link->info){
+				p = p->link;
+			}
+			if(p->link == NULL){
+				cout<<"Element "<<ele<<" is not in the list.\n";
+			}
+			else{
+				Node<T>*temp = p->link;
+				p->link = p->link->link;
+				cout<<"Deleted element : "<<temp->info<<endl;
+				free(temp);
+			}
+						
 		}
-		void Merging(){}
+		void create_list(){
+			int n;T temp;
+			cout<<"Enter the number of elements to enter : ";
+			cin>>n;
+			for(int i =0 ; i < n; i++){
+				cout<<"Enter data : ";
+				cin>>temp;
+				Insertion(temp);
+			}
+		}
+		void Merging(OLL obj){
+			Node<T>*p1 = start;
+			Node<T>*p2 = obj.start;
+			Node<T>*startM = NULL;
+			if(p1->info <= p2->info){
+				startM = p1;
+				p1 = p1->link;
+			}
+			else{
+				startM = p2;
+				p2 = p2->link;
+			}
+			Node<T>*pM = startM;
+			while(p1 != NULL && p2 != NULL)
+				if(p1->info <= p2->info){
+					pM->link = p1;
+					p1 = p1->link;
+				}
+				else{
+					pM->link = p2;
+					p2 = p2->link;
+				}
+				pM = pM->link;
+			if (p1 != NULL){
+				pM->link = p2;
+			}
+			else{
+				pM->link = p1;
+			}
+			start = startM;
+		}
 		void Display(){
 			if(isEmpty()){
 				cout<<"List is empty....\n";
@@ -87,8 +146,10 @@ template<class T>class OLL{
 						break;
 					}
 					case 3:{
-						
-						Merging();
+						OLL<T>obj2;
+						cout<<"Enter data for 2nd list ::\n";
+						obj2.create_list();
+						Merging(obj2);
 						break;
 					}
 					case 4:{
