@@ -5,47 +5,29 @@
 		    c) Clear
 */
 #include<iostream>
-#include<conio.h>
-#include"SingleLinkedList.cpp"
+#include"Program_10_Implementation Linked List using templates. Include functions for insertion, deletion and search of a number, reverse the list and concatenate two linked lists (include a function and also overload operator +).cpp"
 using namespace std;
 template<class T>class Stack{
 	public:
-		SingleLinkedList obj();
+		SingleLinkedList<T>top;
 	public:
 		Stack(){
-			SingleLinkedList obj();
+			top.start = NULL;
 		}
 		void push(T ele){
-			if(top>=size-1){
-				cout<<"Stack Overflow!!!\n";
-			}
-			else{
-				obj.insert_in_beginning(ele);
-			}
+			top.insert_in_beginning(ele);
 		}
 		T pop(){
-			if(top<0){
-				return -1;
-			}
-			else{
-				return arr[top--];
-			}
+			top.delete_from_start();
 		}
 		void clear(){
-			top = -1;
+			while(top.start != NULL){
+				top.delete_from_start();
+			}
 			cout<<"Stack cleared!!!\n";
 		}
 		void display(){
-			if(top<0){
-				cout<<"Stack Underflow!!!\n";
-				return;
-			}
-			else{
-				cout<<"Stack is ::\n";
-				for(int i=top;i>-1;i--){
-					cout<<arr[i]<<"\n";
-				}
-			}
+			top.display_list();
 		}
 		void menu(){
 			char ch = 'y';
@@ -63,12 +45,12 @@ template<class T>class Stack{
 						break;
 					}
 					case 2:{
-						T pp = pop();
-						if(pp != -1){
-							cout<<"Popped element : "<<pp<<"\n";
+						T x = pop();
+						if(x == 0){
+							cout<<"Stack is empty...\n";
 						}
 						else{
-							cout<<"Stack Underflow!!!\n";
+							cout<<"Popped element is "<<x<<endl;
 						}
 						break;
 					}
@@ -92,9 +74,7 @@ template<class T>class Stack{
 };
 
 int main(){
-	Stack<char>obj();
+	Stack<int>obj;
 	obj.menu();
-	getch();
 	return 0;
 }
-
